@@ -1,0 +1,5 @@
+name: VanillaMobs
+version: 1.0
+author: FrizDev
+main: VanillaMobs\Main
+api: 3.0.0
