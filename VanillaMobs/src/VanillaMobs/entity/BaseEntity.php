@@ -3,6 +3,7 @@
 namespace VanillaMobs\entity;
 
 use pocketmine\entity\Creature;
+use pocketmine\nbt\tag\{CompoundTag, ListTag, DoubleTag, FloatTag};
 
 abstract class BaseEntity extends Creature{
 
