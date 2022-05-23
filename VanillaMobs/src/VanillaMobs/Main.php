@@ -14,7 +14,7 @@ use pocketmine\utils\Config;
 use pocketmine\utils\Utils;
 use pocketmine\scheduler\PluginTask;
 use VanillaMobs\entity\animal\{Sheep, Cow, Chicken, Pig};
-use VanillaMobs\entity\monster\{Zombie, Skeleton};
+use VanillaMobs\entity\monster\{Zombie, Skeleton, Husk};
 
 class Main extends PluginBase implements Listener{
 
@@ -27,7 +27,8 @@ class Main extends PluginBase implements Listener{
         Cow::class,
         Chicken::class,
         Zombie::class,
-        Skeleton::class
+        Skeleton::class,
+        Husk::class
                         ];
 
     
