@@ -19,7 +19,7 @@ class Skeleton extends WalkingMonster{
   
 
     public $width = 1;
-    public $height = 1;
+    public $height = 2;
 public $dropExp = [1, 3];
   protected $attackDelay = 0;
 
