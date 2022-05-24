@@ -9,7 +9,7 @@ use pocketmine\network\mcpe\protocol\EntityEventPacket;
 use pocketmine\block\Block;
 use pocketmine\network\Network;
 use pocketmine\level\particle\BubbleParticle;
-use pocketmine\entity\{Player, Entity};
+use pocketmine\entity\{Player, Entity, Living};
 use pocketmine\math\AxisAlignedBB;
 use pocketmine\event\entity\EntityDeathEvent;
 use pocketmine\item\enchantment\Enchantment;
@@ -46,7 +46,7 @@ public function entityBaseTick($tickDiff = 1, $EnchantL = 0){
   public function isCollideOnEntity(){
  $bb = new AxisAlignedBB($this->x - 0.15, $this->y - 0.15, $this->z - 0.15, $this->x + 0.15, $this->y + 0.15, $this->z + 0.15);
    foreach($this->getLevel()->getCollidingEntities($bb->expandedCopy(0.25, 0.25, 0.25), $this) as $entit){
-   if($entit instanceof $this){
+   if($entit instanceof Living){
   $this->collide = 3;
   $this->collider = $entit;
     }
