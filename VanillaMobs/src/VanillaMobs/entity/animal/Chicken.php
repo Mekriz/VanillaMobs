@@ -7,6 +7,7 @@ use pocketmine\network\mcpe\protocol\AddEntityPacket;
 use pocketmine\network\Network;
 use pocketmine\math\AxisAlignedBB;
 use pocketmine\item\Item;
+use pocketmine\level\sound\PopSound;
 
 class Chicken extends WalkingAnimal{
   const NETWORK_ID = 10;
