@@ -134,29 +134,7 @@ $this->setDataProperty(self::DATA_ENDERMAN_HELD_ITEM_DAMAGE, self::DATA_TYPE_SHO
      
      $this->isnear = null;
      $this->target = null;
-     $base = 0.4;
-     $x = $this->x - $this->damager->x;
-     $z = $this->z - $this->damager->z;
-   		$f = sqrt($x * $x + $z * $z);
-		if($f <= 0){
-			return;
-		}
-     			$f = 1 / $f;
-
-			$motion = new Vector3($this->motionX, $this->motionY, $this->motionZ);
-
-			$motion->x /= 2;
-			$motion->y /= 2;
-			$motion->z /= 2;
-			$motion->x += $x * $f * $base;
-			$motion->y += $base;
-			$motion->z += $z * $f * $base;
-
-			if($motion->y > $base){
-				$motion->y = $base;
-			}
-
-			$this->setMotion($motion);
+     $this->setKnockBack(0.4, $this->damager);
      $this->knockback--;
     }elseif($this->isnear instanceof Vector3){
              
