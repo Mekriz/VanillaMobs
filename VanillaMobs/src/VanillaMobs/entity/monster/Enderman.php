@@ -130,6 +130,9 @@ $this->setDataProperty(self::DATA_ENDERMAN_HELD_ITEM_DAMAGE, self::DATA_TYPE_SHO
     $y = $this->level->getHighestBlockAt($x, $z);
     $this->teleport(new Vector3($x, $y + 1.5, $z), $this->yaw, $this->pitch);
     $this->randomtp = 0;
+}elseif($this->collide > 1){
+   $this->setKnockBack(0.2, $this->collider);
+   $this->collide--;
 }elseif($this->knockback > 1 and $this->damager instanceof Vector3){
      
      $this->isnear = null;
