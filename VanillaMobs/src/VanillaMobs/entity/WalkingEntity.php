@@ -24,6 +24,8 @@ abstract class WalkingEntity extends BaseEntity{
   protected $knockback;
   protected $agitation;
   protected $damager = null;
+  protected $collide;
+  protected $collider = null;
 
 
   protected $gravity = 0.17;
@@ -41,16 +43,18 @@ public function entityBaseTick($tickDiff = 1, $EnchantL = 0){
 		return $hasUpdate;
 	}
   
+  public function isCollideOnEntity(){
+ $bb = new AxisAlignedBB($this->x - 0.15, $this->y - 0.15, $this->z - 0.15, $this->x + 0.15, $this->y + 0.15, $this->z + 0.15);
+   foreach($this->getLevel()->getCollidingEntities($bb->expandedCopy(0.25, 0.25, 0.25), $this) as $entit){
+   if($entit instanceof $this){
+  $this->collide = 3;
+  $this->collider = $entit;
+    }
+  }
+}
     
   public function processMove(){
-
-if(!$this->chunk->isGenerated()){
-            $this->chunk->setGenerated();
-        }
-        if(!$this->chunk->isPopulated()){
-            $this->chunk->setPopulated();
-        }
-
+  $this->isCollideOnEntity();
 }
   public function defaultMove(){
 if(!$this->isInsideOfWater()){
@@ -65,33 +69,14 @@ if($this->target instanceof Vector3){
    $this->moveToTarget($this->target, 0.12);
 }
 $this->agitation--;
+}elseif($this->collide > 1){
+   $this->setKnockBack(0.2, $this->collider);
+   $this->collide--;
 }elseif($this->knockback > 1 and $this->damager instanceof Vector3){
 $this->target = null;
 $this->isnear = null;
-     $base = 0.4;
-     $x = $this->x - $this->damager->x;
-     $z = $this->z - $this->damager->z;
-   		$f = sqrt($x * $x + $z * $z);
-		if($f <= 0){
-			return;
-		}
-     			$f = 1 / $f;
-
-			$motion = new Vector3($this->motionX, $this->motionY, $this->motionZ);
-
-			$motion->x /= 2;
-			$motion->y /= 2;
-			$motion->z /= 2;
-			$motion->x += $x * $f * $base;
-			$motion->y += $base;
-			$motion->z += $z * $f * $base;
-
-			if($motion->y > $base){
-				$motion->y = $base;
-			}
-
-			$this->setMotion($motion);
-$this->knockback -= 1;
+$this->setKnockBack(0.4, $this->damager);
+$this->knockback--;
 }elseif($this->isnear instanceof Vector3){
          
 $angle = atan2($this->isnear->z - $this->z, $this->isnear->x - $this->x);
