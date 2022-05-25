@@ -18,10 +18,10 @@ use VanillaMobs\entity\monster\{Zombie, Skeleton, Husk, Enderman};
 
 class Main extends PluginBase implements Listener{
 
-  private static $classes;
+  private static array $classes = array();
 
-  public function onLoad(){
-   $classes = [
+  public function onLoad() : void{
+   $classes = array(
         Pig::class,
         Sheep::class,
         Cow::class,
@@ -30,19 +30,19 @@ class Main extends PluginBase implements Listener{
         Skeleton::class,
         Husk::class,
         Enderman::class
-                        ];
+        );
 
     
-   foreach($classes as $class){
+   foreach($classes as $class) {
     Entity::registerEntity($class);
-}
+    }
             $item = Item::get(Item::SPAWN_EGG, $class::NETWORK_ID);
             if(!Item::isCreativeItem($item)){
                 Item::addCreativeItem($item);
             }
   }
 
-  public function onEnable(){
+  public function onEnable() : void{
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
   }
 
